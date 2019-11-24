@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="710bad2a82084b1a95ff94eade9ce0bc" Name="Diagram1">
+        <EntityTypeShape EntityType="RedditCloneModel.Comment" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedditCloneModel.Following" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedditCloneModel.Post" Width="1.5" PointX="8.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedditCloneModel.Subreddit" Width="1.5" PointX="3" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedditCloneModel.User" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <AssociationConnector Association="RedditCloneModel.FK_Comment_Post" ManuallyRouted="false" />
+        <AssociationConnector Association="RedditCloneModel.FK_Comment_User" ManuallyRouted="false" />
+        <AssociationConnector Association="RedditCloneModel.FK_Following_Subreddit" ManuallyRouted="false" />
+        <AssociationConnector Association="RedditCloneModel.FK_Following_User" ManuallyRouted="false" />
+        <AssociationConnector Association="RedditCloneModel.FK_Post_Subreddit" ManuallyRouted="false" />
+        <AssociationConnector Association="RedditCloneModel.FK_Post_User" ManuallyRouted="false" />
+        <AssociationConnector Association="RedditCloneModel.FK_Subreddit_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
