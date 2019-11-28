@@ -65,6 +65,11 @@ namespace Reddit_Clone.Controllers
             return View(subreddit);
         }
 
+        public void Follow(string id)
+        {
+
+        }
+
         public ActionResult Subreddit(string id)
         {
             List<Post> post = ( from r in db.Subreddits
@@ -73,7 +78,6 @@ namespace Reddit_Clone.Controllers
                         where r.subreddit_name == id
                         select p).ToList();
             System.Diagnostics.Debug.WriteLine(post);
-            //Post post = query.ToList();
             return View(post);
         }
 
@@ -82,6 +86,17 @@ namespace Reddit_Clone.Controllers
         {
             if (Session["user"] == null)
                 return RedirectToAction("Login", "UsersManage");
+
+            var x = from s in db.Subreddits
+                    where s.subreddit_name == id
+                    select s.username;
+
+            if (Session["user"].ToString() != x.First())
+            {
+                ViewBag.message = "Not allowed to delete other users!";
+                return RedirectToAction("Index", "Subreddits");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -104,6 +119,7 @@ namespace Reddit_Clone.Controllers
         {
             if (Session["user"] == null)
                 return RedirectToAction("Login", "UsersManage");
+
             if (ModelState.IsValid)
             {
                 db.Entry(subreddit).State = EntityState.Modified;
@@ -119,6 +135,17 @@ namespace Reddit_Clone.Controllers
         {
             if (Session["user"] == null)
                 return RedirectToAction("Login", "UsersManage");
+
+            var x = from s in db.Subreddits
+                    where s.subreddit_name == id
+                    select s.username;
+
+            if (Session["user"].ToString() != x.First())
+            {
+                ViewBag.message = "Not allowed to delete other users!";
+                return RedirectToAction("Index", "Subreddits");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -136,6 +163,19 @@ namespace Reddit_Clone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            if (Session["user"] == null)
+                return RedirectToAction("Login", "UsersManage");
+
+            var x = from s in db.Subreddits
+                    where s.subreddit_name == id
+                    select s.username;
+
+            if (Session["user"].ToString() != x.First())
+            {
+                ViewBag.message = "Not allowed to delete other users!";
+                return RedirectToAction("Index", "Subreddits");
+            }
+
             Subreddit subreddit = db.Subreddits.Find(id);
             db.Subreddits.Remove(subreddit);
             db.SaveChanges();

@@ -76,6 +76,8 @@ namespace Reddit_Clone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "post_id,username,subreddit_name,title,content,image,upvotes,downvotes,edit_flag")] Post post)
         {
+            if (Session["user"] == null)
+                return RedirectToAction("Login", "UsersManage");
             if (ModelState.IsValid)
             {
                 db.Posts.Add(post);
@@ -91,6 +93,20 @@ namespace Reddit_Clone.Controllers
         // GET: Posts/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["user"] == null)
+                return RedirectToAction("Login", "UsersManage");
+
+            String usr = Session["user"].ToString();
+            var x = from s in db.Posts
+                    where s.username == usr && s.post_id == id
+                    select s;
+
+            if (x == null)
+            {
+                ViewBag.message = "Not allowed to delete other's posts!";
+                return RedirectToAction("Index", "Subreddits");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -112,6 +128,9 @@ namespace Reddit_Clone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "post_id,username,subreddit_name,title,content,image,upvotes,downvotes,edit_flag")] Post post)
         {
+            if (Session["user"] == null)
+                return RedirectToAction("Login", "UsersManage");
+
             if (ModelState.IsValid)
             {
                 db.Entry(post).State = EntityState.Modified;
@@ -126,6 +145,20 @@ namespace Reddit_Clone.Controllers
         // GET: Posts/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["user"] == null)
+                return RedirectToAction("Login", "UsersManage");
+
+            String usr = Session["user"].ToString();
+            var x = from s in db.Posts
+                    where s.username == usr && s.post_id == id
+                    select s;
+
+            if (x == null)
+            {
+                ViewBag.message = "Not allowed to delete other's posts!";
+                return RedirectToAction("Index", "Subreddits");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -143,6 +176,20 @@ namespace Reddit_Clone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["user"] == null)
+                return RedirectToAction("Login", "UsersManage");
+
+            String usr = Session["user"].ToString();
+            var x = from s in db.Posts
+                    where s.username == usr && s.post_id == id
+                    select s;
+
+            if (x == null)
+            {
+                ViewBag.message = "Not allowed to delete other's posts!";
+                return RedirectToAction("Index", "Subreddits");
+            }
+
             Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();

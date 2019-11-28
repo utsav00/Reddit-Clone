@@ -37,6 +37,11 @@ namespace Reddit_Clone.Controllers
 
         public ActionResult Login()
         {
+            if (Session["user"] != null)
+            {
+                ViewBag.message = "Alreay logged in!";
+                return RedirectToAction("Subreddit" , "Subreddits");
+            }
             return View();
         }
 
@@ -109,6 +114,12 @@ namespace Reddit_Clone.Controllers
         // GET: UsersManage/Create
         public ActionResult Create()
         {
+            if (Session["user"] != null)
+            {
+                ViewBag.message = "Logout first!";
+                return RedirectToAction("Login", "UsersManage");
+            }
+
             return View();
         }
 
@@ -119,19 +130,18 @@ namespace Reddit_Clone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "username,creation_time,gender,followers,password")] User user)
         {
-            if(Session["user"] == null)
+            if (Session["user"] != null)
             {
-                if (ModelState.IsValid)
+                ViewBag.message = "Logout first!";
+                return RedirectToAction("Login", "UsersManage");
+            }
+
+            if (ModelState.IsValid)
                 {
                     db.Users.Add(user);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-            }
-            else
-            {
-                return RedirectToAction("Index", "UsersManage");
-            }
 
             return View(user);
         }
@@ -139,6 +149,15 @@ namespace Reddit_Clone.Controllers
         // GET: UsersManage/Edit/5
         public ActionResult Edit(string id)
         {
+            if (Session["user"] == null)
+                return RedirectToAction("Login", "UsersManage");
+
+            if (Session["user"].ToString() != id)
+            {
+                ViewBag.message = "Not allowed to delete other users!";
+                return RedirectToAction("Index", "Subreddits");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -158,6 +177,9 @@ namespace Reddit_Clone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "username,creation_time,gender,followers,password")] User user)
         {
+            if (Session["user"] == null)
+                return RedirectToAction("Login", "UsersManage");
+
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = EntityState.Modified;
@@ -170,6 +192,15 @@ namespace Reddit_Clone.Controllers
         // GET: UsersManage/Delete/5
         public ActionResult Delete(string id)
         {
+            if (Session["user"] == null)
+                return RedirectToAction("Login", "UsersManage");
+
+            if (Session["user"].ToString() != id)
+            {
+                ViewBag.message = "Not allowed to delete other users!";
+                return RedirectToAction("Index", "Subreddits");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -187,6 +218,15 @@ namespace Reddit_Clone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            if (Session["user"] == null)
+                return RedirectToAction("Login", "UsersManage");
+
+            if (Session["user"].ToString() != id)
+            {
+                ViewBag.message = "Not allowed to delete other users!";
+                return RedirectToAction("Index", "Subreddits");
+            }
+
             User user = db.Users.Find(id);
             db.Users.Remove(user);
             db.SaveChanges();
