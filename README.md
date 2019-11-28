@@ -9,6 +9,9 @@ Initially, wanted to mimic Reddit's behaviour without the architecture part to l
 - [x] Main page for all the post from the subscribed Subreddits pertaining to the logged in User  
 </br>
 
+**Partially Done:**
+* Backend code for following someone
+
 **Remaining:**  
 - [ ] Comment thread
 - [ ] Caching
