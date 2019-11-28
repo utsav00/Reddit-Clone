@@ -25,4 +25,4 @@ Initially, wanted to mimic Reddit's behaviour without the architecture part to l
 
 Checkout the entity diagram with the help of `RedditModel.edmx` file
 
->P.S. : First time using markdown
+P.S. : First time using markdown
