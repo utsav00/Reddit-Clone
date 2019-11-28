@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RedditCloneModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RedditCloneModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="comment_id" />
@@ -57,6 +57,7 @@
           <Property Name="creation_time" Type="timestamp" StoreGeneratedPattern="Computed" />
           <Property Name="gender" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="followers" Type="int" />
+          <Property Name="password" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <Association Name="FK_Comment_Post">
           <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
@@ -177,8 +178,7 @@
             <End Role="Subreddit" EntitySet="Subreddit" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RedditCloneModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -248,6 +248,7 @@
           <NavigationProperty Name="Followings" Relationship="Self.FK_Following_User" FromRole="User" ToRole="Following" />
           <NavigationProperty Name="Posts" Relationship="Self.FK_Post_User" FromRole="User" ToRole="Post" />
           <NavigationProperty Name="Subreddits" Relationship="Self.FK_Subreddit_User" FromRole="User" ToRole="Subreddit" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Comment_Post">
           <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
@@ -425,6 +426,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="RedditCloneModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="creation_time" ColumnName="creation_time" />
                 <ScalarProperty Name="gender" ColumnName="gender" />

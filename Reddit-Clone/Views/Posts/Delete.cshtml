@@ -1,0 +1,89 @@
+﻿@model Reddit_Clone.Models.Post
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Post</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.upvotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.upvotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.downvotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.downvotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.edit_flag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.edit_flag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Subreddit.username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subreddit.username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.gender)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

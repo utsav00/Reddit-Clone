@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Reddit_Clone.Models.Post>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.upvotes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.downvotes)
+        </th>
+
+        <!--
+        <th>
+            @Html.DisplayNameFor(model => model.edit_flag)
+        </th>
+        -->
+
+        <th>
+            @Html.DisplayNameFor(model => model.Subreddit.username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.gender)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.image)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.upvotes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.downvotes)
+        </td>
+
+        <!--
+        <td>
+            @Html.DisplayFor(modelItem => item.edit_flag)
+        </td>
+        -->
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Subreddit.username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.gender)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.post_id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.post_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.post_id })
+        </td>
+    </tr>
+}
+
+</table>
+
+<!--
+   <div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+    </div>
+</div> 
+-->

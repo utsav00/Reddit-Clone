@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="710bad2a82084b1a95ff94eade9ce0bc" Name="Diagram1">
-        <EntityTypeShape EntityType="RedditCloneModel.Comment" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RedditCloneModel.Following" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="RedditCloneModel.Post" Width="1.5" PointX="8.25" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RedditCloneModel.Subreddit" Width="1.5" PointX="3" PointY="17.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RedditCloneModel.User" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedditCloneModel.Comment" Width="1.5" PointX="3.875" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedditCloneModel.Following" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedditCloneModel.Post" Width="1.5" PointX="9" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedditCloneModel.Subreddit" Width="1.5" PointX="5.875" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedditCloneModel.User" Width="1.5" PointX="2.125" PointY="5.375" IsExpanded="true" />
         <AssociationConnector Association="RedditCloneModel.FK_Comment_Post" ManuallyRouted="false" />
         <AssociationConnector Association="RedditCloneModel.FK_Comment_User" ManuallyRouted="false" />
         <AssociationConnector Association="RedditCloneModel.FK_Following_Subreddit" ManuallyRouted="false" />

@@ -27,6 +27,7 @@ namespace Reddit_Clone.Models
         public byte[] creation_time { get; set; }
         public string gender { get; set; }
         public Nullable<int> followers { get; set; }
+        public string password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }

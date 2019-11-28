@@ -159,6 +159,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\SubredditsController.cs" />
+    <Compile Include="Controllers\UsersManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -251,6 +254,24 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Posts\Create.cshtml" />
+    <Content Include="Views\Posts\Delete.cshtml" />
+    <Content Include="Views\Posts\Details.cshtml" />
+    <Content Include="Views\Posts\Edit.cshtml" />
+    <Content Include="Views\Posts\Index.cshtml" />
+    <Content Include="Views\UsersManage\Create.cshtml" />
+    <Content Include="Views\UsersManage\Delete.cshtml" />
+    <Content Include="Views\UsersManage\Details.cshtml" />
+    <Content Include="Views\UsersManage\Edit.cshtml" />
+    <Content Include="Views\UsersManage\Index.cshtml" />
+    <Content Include="Views\UsersManage\Login.cshtml" />
+    <Content Include="Views\Subreddits\Create.cshtml" />
+    <Content Include="Views\Subreddits\Delete.cshtml" />
+    <Content Include="Views\Subreddits\Details.cshtml" />
+    <Content Include="Views\Subreddits\Edit.cshtml" />
+    <Content Include="Views\Subreddits\Index.cshtml" />
+    <Content Include="Views\UsersManage\Logout.cshtml" />
+    <Content Include="Views\Subreddits\Subreddit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

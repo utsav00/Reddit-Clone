@@ -1,0 +1,83 @@
+﻿@model Reddit_Clone.Models.Post
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Post</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.upvotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.upvotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.downvotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.downvotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.edit_flag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.edit_flag)
+        </dd>
+
+        <dt>
+            moderator
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subreddit.username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.gender)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.post_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

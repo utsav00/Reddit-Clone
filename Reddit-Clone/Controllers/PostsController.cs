@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Reddit_Clone.Models;
@@ -10,82 +13,149 @@ namespace Reddit_Clone.Controllers
     public class PostsController : Controller
     {
         private RedditCloneEntities db = new RedditCloneEntities();
-        // GET: Post
+
+        // GET: Posts
+        
         public ActionResult Index()
         {
-            return View(db.Posts.ToList());
+            if (Session["user"] == null)
+            {
+                //return RedirectToAction("Login", "UsersManage");
+                var posts = db.Posts.Include(p => p.Subreddit).Include(p => p.User);
+                return View(posts.ToList());
+            }
+            else
+            {
+                /*var posts = from s in db.Subreddits join p in db.Posts
+                            on s.subreddit_name equals p.subreddit_name into groupjoin_subreddit_post
+                            join f in db.Followings
+                            on s.subreddit_name equals f.subreddit_name;*/
+                List<Post> posts = (from f in db.Followings join s in db.Subreddits 
+                                   on f.subreddit_name equals s.subreddit_name
+                                   where f.username == Session["user"].ToString()
+                                   join p in db.Posts
+                                   on s.subreddit_name equals p.subreddit_name
+                                   select p).ToList();
+
+                return View(posts);
+            }
+
+            
         }
 
-        // GET: Post/Details/5
-        public ActionResult Details(int id)
+        // GET: Posts/Details/5
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = db.Posts.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            return View(post);
         }
-
-        // GET: Post/Create
+        
+        // GET: Posts/Create
         public ActionResult Create()
         {
+            if (Session["user"] == null)
+                return RedirectToAction("Login", "UsersManage");
+
+            ViewBag.subreddit_name = new SelectList(db.Subreddits, "subreddit_name", "username");
+            ViewBag.username = new SelectList(db.Users, "username", "gender");
             return View();
         }
 
-        // POST: Post/Create
+        // POST: Posts/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "post_id,username,subreddit_name,title,content,image,upvotes,downvotes,edit_flag")] Post post)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                db.Posts.Add(post);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+
+            ViewBag.subreddit_name = new SelectList(db.Subreddits, "subreddit_name", "username", post.subreddit_name);
+            ViewBag.username = new SelectList(db.Users, "username", "gender", post.username);
+            return View(post);
+        }
+
+        // GET: Posts/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-        }
-
-        // GET: Post/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Post/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            Post post = db.Posts.Find(id);
+            if (post == null)
             {
-                // TODO: Add update logic here
+                return HttpNotFound();
+            }
+            ViewBag.subreddit_name = new SelectList(db.Subreddits, "subreddit_name", "username", post.subreddit_name);
+            ViewBag.username = new SelectList(db.Users, "username", "gender", post.username);
+            return View(post);
+        }
 
+        // POST: Posts/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "post_id,username,subreddit_name,title,content,image,upvotes,downvotes,edit_flag")] Post post)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(post).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.subreddit_name = new SelectList(db.Subreddits, "subreddit_name", "username", post.subreddit_name);
+            ViewBag.username = new SelectList(db.Users, "username", "gender", post.username);
+            return View(post);
         }
 
-        // GET: Post/Delete/5
-        public ActionResult Delete(int id)
+        // GET: Posts/Delete/5
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = db.Posts.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            return View(post);
         }
 
-        // POST: Post/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        // POST: Posts/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            Post post = db.Posts.Find(id);
+            db.Posts.Remove(post);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-                return RedirectToAction("Index");
-            }
-            catch
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                return View();
+                db.Dispose();
             }
+            base.Dispose(disposing);
         }
     }
 }

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Reddit_Clone.Models.Post>
+
+@{
+    ViewBag.Title = "Subreddit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Subreddit</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.subreddit_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.upvotes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.downvotes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subreddit.username)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.subreddit_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.image)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.upvotes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.downvotes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subreddit.username)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.post_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.post_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.post_id })
+        </td>
+    </tr>
+}
+
+</table>

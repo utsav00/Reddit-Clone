@@ -1,0 +1,35 @@
+﻿@model Reddit_Clone.Models.Subreddit
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Subreddit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.gender)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.subreddit_name }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

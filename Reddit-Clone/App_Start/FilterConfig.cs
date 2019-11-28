@@ -10,4 +10,19 @@ namespace Reddit_Clone
             filters.Add(new HandleErrorAttribute());
         }
     }
+
+    /*public class UserSessionFilter : ActionFilterAttribute, IActionFilter
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            HttpContext ctx = HttpContext.Current;
+
+            if(HttpContext.Current.Session["key"] == null)
+            {
+                filterContext.Result = new RedirectResult("~/Home");
+                return;
+            }
+            base.OnActionExecuting(filterContext);
+        }
+    }*/
 }
