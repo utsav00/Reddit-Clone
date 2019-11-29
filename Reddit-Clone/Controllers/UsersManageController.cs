@@ -45,16 +45,22 @@ namespace Reddit_Clone.Controllers
             return View();
         }
 
-        public ActionResult Login(string id, string password)
+        [HttpPost]
+        public ActionResult Login(string id/*, string password*/)
         {
+            ViewBag.message = "null";
+            if (Session["user"] != null)
+            {
+                ViewBag.message = "Alreay logged in!";
+                return RedirectToAction("Subreddit", "Subreddits");
+            }
+
             if (ModelState.IsValid)
             {
-                if (Session["user"] != null)
-                {
-                    ViewBag.message = "Already Logged In!";
-                    return RedirectToAction("Index", "UsersManage");
-                }
-                User user = db.Users.Find(id);
+                User user = (from u in db.Users
+                            where u.username == id
+                            select u).FirstOrDefault();
+                //db.Users.Find(id);
                 if (user == null)
                 {
                     ViewBag.message1 = "User does not exist";
@@ -62,15 +68,15 @@ namespace Reddit_Clone.Controllers
                 }
                 else
                 {
-                    if (user.password != password)
+                    /*if (user.password != password)
                     {
                         ViewBag.message = "Wrong Password";
                         
-                    }
+                    }*/
                     if (true)
                     {
                         Session["user"] = user.username;
-                        return RedirectToAction("Index", "UsersManage");
+                        return RedirectToAction("Index", "Posts");
                     }
                 }
             }
@@ -82,6 +88,7 @@ namespace Reddit_Clone.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult Follow(string submitValue)
         {
             if (Session["user"] == null)

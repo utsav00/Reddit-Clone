@@ -32,15 +32,33 @@ namespace Reddit_Clone.Controllers
                             on s.subreddit_name equals f.subreddit_name;*/
                 List<Post> posts = (from f in db.Followings join s in db.Subreddits 
                                    on f.subreddit_name equals s.subreddit_name
-                                   where f.username == Session["user"].ToString()
                                    join p in db.Posts
                                    on s.subreddit_name equals p.subreddit_name
+                                   where f.username == Session["user"].ToString()
                                    select p).ToList();
 
                 return View(posts);
             }
 
             
+        }
+
+        public void Upvote(int? id)
+        {
+            Post post = db.Posts.Find(id);
+            post.upvotes += 1;
+            db.Posts.Remove(post);
+            db.Posts.Add(post);
+            db.SaveChanges();
+        }
+
+        public void Downvote(int? id)
+        {
+            Post post = db.Posts.Find(id);
+            post.downvotes -= 1;
+            db.Posts.Remove(post);
+            db.Posts.Add(post);
+            db.SaveChanges();
         }
 
         // GET: Posts/Details/5

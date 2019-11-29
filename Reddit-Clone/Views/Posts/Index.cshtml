@@ -10,6 +10,8 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<!--
 <table class="table">
     <tr>
         <th>
@@ -28,11 +30,11 @@
             @Html.DisplayNameFor(model => model.downvotes)
         </th>
 
-        <!--
+        
         <th>
             @Html.DisplayNameFor(model => model.edit_flag)
         </th>
-        -->
+        
 
         <th>
             @Html.DisplayNameFor(model => model.Subreddit.username)
@@ -62,11 +64,11 @@
             @Html.DisplayFor(modelItem => item.downvotes)
         </td>
 
-        <!--
+        
         <td>
             @Html.DisplayFor(modelItem => item.edit_flag)
         </td>
-        -->
+        
 
         <td>
             @Html.DisplayFor(modelItem => item.Subreddit.username)
@@ -83,15 +85,19 @@
 }
 
 </table>
-
-<!--
-   <div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-    </div>
-</div> 
 -->
+
+@foreach (var item in Model)
+{
+
+   <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">@Html.DisplayFor(modelItem => item.title)</h5>
+            <h6 class="card-subtitle mb-2 text-muted">r/ @Html.DisplayFor(modelItem => item.Subreddit.username)</h6>
+            <p class="card-text">@Html.DisplayFor(modelItem => item.content)</p>
+            @Html.ActionLink("Details", "Details", new { id = item.post_id }) | 
+            @Html.DisplayFor(modelItem => item.upvotes)  @Html.ActionLink("Upvote", "Upvote", new { id = item.post_id })
+            @Html.DisplayFor(modelItem => item.downvotes) @Html.ActionLink("Upvote", "Downvote", new { id = item.post_id })
+        </div>
+    </div> 
+}
